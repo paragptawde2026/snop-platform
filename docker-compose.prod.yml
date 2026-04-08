@@ -1,0 +1,22 @@
+# Production overrides — run with:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# This file:
+#  - Removes external ports for DB and Redis (security)
+#  - Removes external port for backend (nginx handles routing)
+#  - Removes external port for frontend (nginx handles routing)
+
+version: "3.9"
+
+services:
+  db:
+    ports: []          # DB must NOT be reachable from outside the server
+
+  redis:
+    ports: []          # Redis must NOT be reachable from outside the server
+
+  backend:
+    ports: []          # Nginx proxies /api/* — no need to expose directly
+
+  frontend:
+    ports: []          # Nginx proxies /* — no need to expose directly
